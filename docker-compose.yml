@@ -12,7 +12,7 @@ services:
       DATABASE_URL: "mysql://root:my_secret_pw_shh@db:3306/order_db"
     depends_on:
       - db
-    command: bash -c "wait-for-it db:3306 &&
+    command: bash -c "wait-for-it -t 0 db:3306 --
               composer install &&
                bash ./.docker/scripts/setup.sh &&
                php -d variables_order=EGPCS -S 0.0.0.0:80 -t public"
