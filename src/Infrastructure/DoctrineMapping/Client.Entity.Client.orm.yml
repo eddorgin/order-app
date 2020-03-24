@@ -1,0 +1,16 @@
+App\Domain\Client\Entity\Client:
+  type: entity
+  table: client
+  repositoryClass: App\Infrastructure\Domain\ClientRepository
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      column: name
+    phone:
+      type: string
+      column: phone
+      unique: true

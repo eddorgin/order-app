@@ -1,0 +1,18 @@
+App\Domain\Tariff\Entity\Tariff:
+  type: entity
+  table: tariff
+  repositoryClass: App\Infrastructure\Domain\TariffRepository
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      column: name
+    price:
+      type: decimal
+      column: price
+    deliveryDays:
+      type: json
+      column: delivery_days

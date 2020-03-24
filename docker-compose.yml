@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  php:
+    build: .docker/php
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DATABASE_DRIVER: "pdo_mysql"
+      DATABASE_SERVER_VERSION: "5.7"
+      DATABASE_URL: "mysql://root:my_secret_pw_shh@db:3306/order_db"
+    depends_on:
+      - db
+    command: bash -c "wait-for-it db:3306 &&
+              composer install &&
+               bash ./.docker/scripts/setup.sh &&
+               php -d variables_order=EGPCS -S 0.0.0.0:80 -t public"
+
+    ports:
+      - 8089:80
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_pw_shh
+      MYSQL_DATABASE: order_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    ports:
+      - "9906:3306"

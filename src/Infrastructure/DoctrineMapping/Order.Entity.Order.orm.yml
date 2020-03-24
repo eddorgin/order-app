@@ -1,0 +1,31 @@
+App\Domain\Order\Entity\Order:
+  type: entity
+  table: my_order
+  repositoryClass: App\Infrastructure\Domain\OrderRepository
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    deliveryDay:
+      type: date
+      column: delivery_day
+    deliveryAddress:
+      type: string
+      column: delivery_address
+    price:
+      type: decimal
+    createdAt:
+      type: datetime
+      column: created_at
+  manyToOne:
+    client:
+      targetEntity: App\Domain\Client\Entity\Client
+      joinColumn:
+        name: client_id
+        referencedColumnName: id
+    tariff:
+      targetEntity: App\Domain\Tariff\Entity\Tariff
+      joinColumn:
+        name: tariff_id
+        referencedColumnName: id

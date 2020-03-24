@@ -1,0 +1,26 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
+  prefix:   /
+
+order.form:
+  path: "/order"
+  methods: GET
+  controller: App\Controller\OrderFormController:index
+
+orders.make:
+  path: "/api/orders"
+  methods: POST
+  controller: App\Controller\OrderController:makeOrder
+
+tariffs.get.by.id:
+  path: "/api/tariffs/{id}"
+  methods: GET
+  controller: App\Controller\TariffController:getTariffById
+
+tariffs.get:
+  path: "/api/tariffs"
+  methods: GET
+  controller: App\Controller\TariffController:getAllTariffs
