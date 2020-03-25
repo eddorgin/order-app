@@ -13,7 +13,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y libbz2-dev zlib1g-dev \
     && apt-get install -y libssh-dev \
     && apt-get install -y librabbitmq-dev \
-    && apt-get install -y wait-for-it
+    && apt-get install -y wait-for-it \
+    && apt-get install -y gnupg2
 
 # Installing PHP Core Extensions
 RUN docker-php-ext-install -j$(nproc) iconv \
@@ -33,8 +34,7 @@ RUN	pecl install xdebug \
 # Install PHP composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN apt-get install -y gnupg2 \
-    && (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -) \
+RUN (curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -) \
     && (echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list) \
     && apt update \
     && apt install -y yarn
